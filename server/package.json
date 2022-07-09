@@ -1,0 +1,42 @@
+{
+  "name": "safespace",
+  "version": "1.0.0",
+  "description": "Kind Of AirBnB for Africans.",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node \"server/index.js\"",
+    "dev": "nodemon \"server/index.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SafeSapce/SafeSapce.git"
+  },
+  "author": "Chukwuma Akunyili with Emmanuel Maduaka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SafeSapce/SafeSapce/issues"
+  },
+  "homepage": "https://github.com/SafeSapce/SafeSapce#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
+    "mongoose": "^6.4.3"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "config": "./server/config",
+    "controllers": "./server/controllers",
+    "middleware": "./server/middleware",
+    "models": "./server/models",
+    "routes": "./server/routes",
+    "utils": "./server/utils"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

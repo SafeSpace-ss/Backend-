@@ -2,35 +2,22 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const { jwt_secret, jwt_expiry } = require('../config');
+const { jwt_secret, jwt_expiry } = process.env;
 
-const UserSchema = new mongoose.Schema(
+const VendorSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, 'Please add full name'],
-    },
-
-    phone: {
-      type: String,
-      unique: true,
-      required: [true, 'Please add a phone number'],
-    },
-
     email: {
       type: String,
       required: [true, 'Please add an email'],
-      unique: true,
+      unique: [true, 'Email already exist'],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         'Please add a valid email',
       ],
     },
-
-    DOB: {
-      type: Integer && String,
-      unique: true,
-      required: [true, 'Please add date of birth'],
+    name: {
+      type: String,
+      required: [true, 'Please add full name'],
     },
     
     password: {
@@ -39,24 +26,53 @@ const UserSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    phone: {
+      type: String,
+      unique: [true, 'Phone Number already exists'],
+      required: [true, 'Please add a phone number'],
+    },
     
+    address: {
+      type: String,
+      required: [true, 'Please add an address'],
+    },
+    city: {
+      type: String,
+      required: [true, 'Please add a city'],
+    },
+    state: {
+      type: String,
+      required: [true, 'Please add a state'],
+    },
+    terms: {
+      type: Boolean,
+      required: [true, 'Please accept terms'],
+    },
+    id_num: {
+      type: Number,
+      required: [true, 'Please add ID number'],
+    },
+    id_card: { type: String, required: [true, 'Please upload ID'] },
+
+    cloudinary_id: {
+      type: String,
+      required: [true, 'Please provide cloudinary ID'],
+    },
     role: {
       type: String,
       required: true,
-      enum: ['user', 'admin'],
-      default: 'user',
+      default: 'vendor',
     },
-   
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
+
   {
     timestamps: true,
   }
 );
-
 // Encrypt password using bcrypt before saving to database
-UserSchema.pre('save', async function (next) {
+VendorSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
@@ -66,19 +82,19 @@ UserSchema.pre('save', async function (next) {
 });
 
 // Sign JWT and return
-UserSchema.methods.getSignedJwtToken = function () {
+VendorSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, jwt_secret, {
     expiresIn: jwt_expiry,
   });
 };
 
 // Match user entered password to hashed password in database
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+VendorSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // Generate and hash password token
-UserSchema.methods.getResetPasswordToken = function () {
+VendorSchema.methods.getResetPasswordToken = function () {
   // Generate token
   const resetToken = crypto.randomBytes(20).toString('hex');
 
@@ -94,4 +110,4 @@ UserSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Vendor', VendorSchema);

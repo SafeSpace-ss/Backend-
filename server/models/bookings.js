@@ -46,3 +46,15 @@ const bookingSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('Booking', bookingSchema);
+
+
+const BookingSchema = new Schema({
+  date: String,
+  approved: Boolean,
+  user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+  },
+});
+
+module.exports = model('Booking', BookingSchema);

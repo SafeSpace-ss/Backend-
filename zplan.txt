@@ -1,6 +1,5 @@
 - started with authentication
 
-MONGO_URI= mongodb+srv://SafeSpace:safespace2030@safespace.pvl2u.mongodb.net/safespace?retryWrites=true&w=majority
 
 -user should allow the application to access his current location to give 
 -an accurate view of, offers present within their location.

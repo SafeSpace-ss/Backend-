@@ -30,12 +30,7 @@ const bookingSchema = new mongoose.Schema(
     paymentInfo: {
       transactionId: { type: Number, trim: true, required: true, unique: true },
       currency: { type: String, required: true },
-      gateway: {
-        type: String,
-        required: [true, 'Payment Gateway should be included'],
-        enum: ['flutterwave'], // more can be added later
-        default: 'flutterwave',
-      },
+      
       status: String,
     },
     status: {

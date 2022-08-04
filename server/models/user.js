@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const { jwt_secret, jwt_expiry } = require('../config');
+const { jwt_secret, jwt_expiry } = process.env;
 
 const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, 'Please add full name'],
+    },
+
+    username: {
+      type: String,
+      required: true
     },
 
     phone: {
@@ -28,7 +33,11 @@ const UserSchema = new mongoose.Schema(
     },
 
     DOB: {
-      type: Integer && String,
+      type: {
+        Day: Number,
+        Month: Number,
+        Year: Number
+      },
       unique: true,
       required: [true, 'Please add date of birth'],
     },

@@ -1,0 +1,10 @@
+NODE_ENV = 
+API_PORT= 
+
+MONGO_URI= 
+
+TOKEN_KEY = 
+
+jwt_secret = 
+jwt_expiry = 
+jwt_cookie_expiry = 

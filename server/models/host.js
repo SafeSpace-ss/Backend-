@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { jwt_secret, jwt_expiry } = process.env;
@@ -32,6 +32,12 @@ const VendorSchema = new mongoose.Schema(
       required: [true, 'Please add a phone number'],
     },
     
+    business_name: {
+      type: String,
+      unique: [true, 'Business name already exists'],
+      required: [true, 'Please add a business name'],
+    },
+    
     address: {
       type: String,
       required: [true, 'Please add an address'],
@@ -46,17 +52,17 @@ const VendorSchema = new mongoose.Schema(
     },
     terms: {
       type: Boolean,
-      required: [true, 'Please accept terms'],
+      required: ['Please accept terms'],
     },
     id_num: {
       type: Number,
-      required: [true, 'Please add ID number'],
+      required: ['Please add ID number'],
     },
-    id_card: { type: String, required: [true, 'Please upload ID'] },
+    id_card: { type: String, required: [ 'Please upload ID'] },
 
     cloudinary_id: {
       type: String,
-      required: [true, 'Please provide cloudinary ID'],
+      required: [ 'Please provide cloudinary ID'],
     },
     role: {
       type: String,

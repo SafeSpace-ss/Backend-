@@ -7,6 +7,10 @@ MONGO_URI= mongodb+srv://SafeSpace:safespace2030@safespace.pvl2u.mongodb.net/saf
 
 -uninstall bcrypt-node-js
 -install crypto
+-install multer
+-install path
+-install datauri
+-install express-async-handler
 
 
 -All references to orderId is replaced with bookingId

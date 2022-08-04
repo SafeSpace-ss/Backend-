@@ -4,7 +4,7 @@ const {
     getHosts,
     getUser,
     deleteUser, 
-} = require('../controllers/users');
+} = require('../controllers/users'); 
 
 const advancedResults = require('../middleware/advancedResult');
 const User = require('../models/user');

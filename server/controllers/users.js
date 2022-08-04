@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Host = require('../models/host');
 const ErrorResponse = require('../utils/errorResponse');
 
-//@desc         Get all Users
+//@desc         Get all Users 
 //@route        GET /api/v1/users
 //@access       Private (Admin)
 exports.getUsers = asyncHandler(async (req, res, next) => {

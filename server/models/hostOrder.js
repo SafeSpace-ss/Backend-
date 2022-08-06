@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const vendorOrderSchema = new mongoose.Schema(
+const hostOrderSchema = new mongoose.Schema(
   {
     bookingId: { type: String, required: true },
     products: [
@@ -12,9 +12,9 @@ const vendorOrderSchema = new mongoose.Schema(
       },
     ],
 
-    vendor: {
+    host: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Vendor',
+        ref: 'Host',
         required: true,
     },
 
@@ -45,4 +45,4 @@ const vendorOrderSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('vendorOrder', vendorOrderSchema);
+module.exports = mongoose.model('hostOrder', hostOrderSchema);

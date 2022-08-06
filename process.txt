@@ -8,3 +8,7 @@ TOKEN_KEY =
 jwt_secret = 
 jwt_expiry = 
 jwt_cookie_expiry = 
+
+cloud_name =
+cloud_api_key =
+cloud_api_secret = 

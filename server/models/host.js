@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { jwt_secret, jwt_expiry } = process.env;
 
-const VendorSchema = new mongoose.Schema(
+const HostSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -67,7 +67,7 @@ const VendorSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      default: 'vendor',
+      default: 'host',
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
@@ -78,7 +78,7 @@ const VendorSchema = new mongoose.Schema(
   }
 );
 // Encrypt password using bcrypt before saving to database
-VendorSchema.pre('save', async function (next) {
+HostSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
@@ -88,19 +88,19 @@ VendorSchema.pre('save', async function (next) {
 });
 
 // Sign JWT and return
-VendorSchema.methods.getSignedJwtToken = function () {
+HostSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, jwt_secret, {
     expiresIn: jwt_expiry,
   });
 };
 
 // Match user entered password to hashed password in database
-VendorSchema.methods.matchPassword = async function (enteredPassword) {
+HostSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // Generate and hash password token
-VendorSchema.methods.getResetPasswordToken = function () {
+HostSchema.methods.getResetPasswordToken = function () {
   // Generate token
   const resetToken = crypto.randomBytes(20).toString('hex');
 
@@ -116,4 +116,4 @@ VendorSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-module.exports = mongoose.model('Vendor', VendorSchema);
+module.exports = mongoose.model('Host', HostSchema);

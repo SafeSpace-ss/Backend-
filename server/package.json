@@ -20,29 +20,17 @@
   "homepage": "https://github.com/SafeSapce/SafeSapce#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "body-parser": "^1.20.0",
+    "cloudinary": "^1.30.1",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
+    "datauri": "^4.1.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "express-async-handler": "^1.2.0",
-    "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.21",
-    "module-alias": "^2.2.2",
     "mongoose": "^6.4.3",
-    "morgan": "^1.10.0",
-    "passport": "^0.6.0",
-    "passport-jwt": "^4.0.0"
-  },
-  "_moduleAliases": {
-    "@root": ".",
-    "config": "./server/config",
-    "controllers": "./server/controllers",
-    "middleware": "./server/middleware",
-    "models": "./server/models",
-    "routes": "./server/routes",
-    "utils": "./server/utils"
+    "multer": "^1.4.5-lts.1",
+    "path": "^0.12.7",
+    "short-unique-id": "^4.4.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

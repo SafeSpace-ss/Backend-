@@ -1,8 +1,10 @@
 // Add {cloudinary}, {dataUri}, {transporter} later on in the project
-
+const { dataUri } = require('../utils/multer')
 const errorResponse = require('../utils/errorResponse');
-const asyncHandler = require('../middleware/async');
 const sendTokenResponse = require('../utils/sendTokenResponse');
+
+const asyncHandler = require('../middleware/async');
+const { cloudinary } = require('../middleware/cloudinary')
 
 const User = require('../models/user');
 const Host = require('../models/host');
@@ -63,12 +65,19 @@ exports.registerHost = asyncHandler(async(req, res, next) => {
         return next(new errorResponse('User already exist with this email', 404));
     }
 
-    //Add {dataUri} and {cloudinary} logic here
+    if(!req.file) {
+        return next(new errorResponse(`No File Found`, 404));
+    }
+
+    const file = dataUri(req).content;
+    const result = await cloudinary.uploader.upload(file, { folder: 'ID_CARDS'});
+    
 
     //Create Host 
     const host = await Host.create({
         ...req.body,
-        //cloudinary_id and  dataUri logic are placed here
+        id_card: result.secure_url,
+        cloudinary_id: result.public_id,
     });
 
     sendTokenResponse(host, 200, res);

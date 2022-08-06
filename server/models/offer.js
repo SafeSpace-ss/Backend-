@@ -10,9 +10,9 @@ const ReviewSchema = new mongoose.Schema(
   {
     timestamps: true, 
   }
-);
+); 
 
-const ProductSchema = new mongoose.Schema(
+const OfferSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, unique: true },
     slug: { type: String },
@@ -31,7 +31,7 @@ const ProductSchema = new mongoose.Schema(
     description: { type: String, required: true },
     vendor: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Vendor',
+      ref: 'Host',
       required: true,
     },
     reviews: [ReviewSchema],
@@ -42,9 +42,9 @@ const ProductSchema = new mongoose.Schema(
 );
 
 // Create Product slug from the name
-ProductSchema.pre('save', function (next) {
+OfferSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Offer', OfferSchema);

@@ -1,15 +1,14 @@
-- started with authentication
 
 
 -user should allow the application to access his current location to give 
--an accurate view of, offers present within their location.
+-an accurate view of, offers present within their location.    //Havent started to work on this feature yet.
 
--uninstall bcrypt-node-js
+
 -install crypto
 -install multer
 -install path
 -install datauri
--install express-async-handler
+-install cloudinary
 
 
 -All references to orderId is replaced with bookingId

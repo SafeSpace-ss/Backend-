@@ -56,43 +56,43 @@ A basic feature of a shortlet service with the following features:
 
 ### }
 
-## Products
+## Offers provided by Hosts
 
-// @desc      Get all products
-// @route     GET /api/v1/products
+// @desc      Get all offers
+// @route     GET /api/v1/offers
 // @access    Public
 
-// @desc      Get product
-// @route     GET /api/v1/products/:id
+// @desc      Get offer
+// @route     GET /api/v1/offers/:id
 // @access    PUBLIC
-// @param     :product_id
+// @param     :offer_id
 
-// @desc      Get products via slug
-// @route     GET /api/v1/products/slug/:slug
+// @desc      Get offers via slug
+// @route     GET /api/v1/offers/slug/:slug
 // @access    PUBLIC
-// @param     :product_slug
+// @param     :offer_slug
 
-// @desc      Create a product
-// @route     Post /api/v1/products
-// @access    Private (Vendor)
+// @desc      Create an offer
+// @route     Post /api/v1/offers
+// @access    Private (Host)
 // @payload   { name, image, price, category, brand, countInStock, description }
 
-// @desc      Update a product
-// @route     PATCH /api/v1/products/:id
-// @access    Private
+// @desc      Update an offer
+// @route     PATCH /api/v1/offers/:id
+// @access    Private (Host)
 // @payload   { name, image, price, category, brand, countInStock, description }
 
-// @desc      Delete a product
-// @route     DELETE /api/v1/products/:id
-// @access    Private (Vendor)
-// @param     :product_id
+// @desc      Delete an offer
+// @route     DELETE /api/v1/offers/:id
+// @access    Private (Host)
+// @param     :offer_id
 
 
 ## Reviews
 
 // @desc      Post reviews
-// @route     POST /api/v1/products/:id/reviews
-// @access    Private (User and Vendors)
+// @route     POST /api/v1/offerss/:id/reviews
+// @access    Private (Host and Vendors)
 // @payload   {name, rating ,comment}
 
 

@@ -1,7 +1,7 @@
 const express = require('express');
 
 const advancedResults = require('../middleware/advancedResult');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, authorize } = require('../middleware/validate');
 
 const Offer = require('../models/offer');
 

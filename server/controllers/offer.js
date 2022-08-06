@@ -1,8 +1,8 @@
 const errorResponse = require('../utils/errorResponse');
-const { dataUri } = require('utils/multer');
+const { dataUri } = require('../utils/multer');
 
 const asyncHandler = require('../middleware/async');
-const { cloudinary } = require('middleware/cloudinary');
+const { cloudinary } = require('../middleware/cloudinary');
 
 const Offer = require('../models/offer');
 

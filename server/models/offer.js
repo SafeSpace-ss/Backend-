@@ -16,9 +16,9 @@ const OfferSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, unique: true },
     slug: { type: String },
-    number_guests: { type: Integer, required: true },
-    number_bedrooms: { type: Integer, required: true },
-    number_bathrooms: { type: Integer, required: true },
+    number_guests: { type: Number, required: true },
+    number_bedrooms: { type: Number, required: true },
+    number_bathrooms: { type: Number, required: true },
     property_type: { type: String, enum: ['FLAT', 'HOUSE'] },
     type: { type: String, enum: ['PRIVATE_ROOM', 'SHARED_ROOM', 'FULL'], required: true },
     bed_type: {type: String, enum:['SINGLE', 'DOUBLE', 'CONVERTIBLE', 'COUCH'], required: true},

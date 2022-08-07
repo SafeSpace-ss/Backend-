@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/SafeSapce/SafeSapce.git"
   },
-  "author": "Chukwuma Akunyili with Emmanuel Maduaka",
+  "author": "Chukwuma Akunyili",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SafeSapce/SafeSapce/issues"
@@ -20,21 +20,21 @@
   "homepage": "https://github.com/SafeSapce/SafeSapce#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cloudinary": "^1.30.1",
     "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "datauri": "^4.1.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-rate-limit": "^6.5.1",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
-    "module-alias": "^2.2.2",
-    "mongoose": "^6.4.3"
-  },
-  "_moduleAliases": {
-    "@root": ".",
-    "config": "./server/config",
-    "controllers": "./server/controllers",
-    "middleware": "./server/middleware",
-    "models": "./server/models",
-    "routes": "./server/routes",
-    "utils": "./server/utils"
+    "mongoose": "^6.4.3",
+    "multer": "^1.4.5-lts.1",
+    "path": "^0.12.7",
+    "short-unique-id": "^4.4.4",
+    "slugify": "^1.6.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

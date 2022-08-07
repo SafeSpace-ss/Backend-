@@ -19,10 +19,10 @@ const { protect } = require('../middleware/validate');
 
 router.post('/', auth);
 router.post('/register', register );
-router.post('registerHost', registerHost);
+router.post('/registerHost', registerHost);
 router.post('/login', login);
-router.get('/profile',protect,  getProfile);
-router.put('/updatedetails', protect, updateDetails);
-router.put('/updatePassword', protect, updatePassword);
+router.get('/profile',  getProfile);
+router.put('/updatedetails', updateDetails);
+router.put('/updatepassword', updatePassword);
 
 module.exports = router;

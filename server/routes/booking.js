@@ -19,13 +19,13 @@ const router = express.Router();
 
 router
     .route('/')
-    .get(protect, authorize('admin'), advancedResults(Offer), getAllBookings)
-    .post(protect, authorize('user'), createBooking);
+    .get( advancedResults(Offer), getAllBookings)
+    .post(authorize('user'), createBooking);
     
-router.route('/mine').get(protect, authorize('user'), getUserBooking);
-router.route('/mybookings').get(protect, authorize('host'), getHostBookings);
+router.route('/mine').get( getUserBooking);
+router.route('/mybookings').get( getHostBookings);
 
-router.route('/user/:userId').get(protect, authorize('admin'), getBookingByUser);
+router.route('/user/:userId').get( getBookingByUser);
 
 router.route('/:id').get(getBooking).delete(deleteBooking);
 

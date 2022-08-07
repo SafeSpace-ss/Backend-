@@ -21,7 +21,7 @@ const {
     deleteOffer,
     createReview
 } = require('../controllers/offer'); 
-const offer = require('../models/offer');
+
 
 const router = express.Router();
 
@@ -35,8 +35,7 @@ router
         getOffers
     )
     .post(
-        protect,
-        authorize('vendor'),
+        
         multerUploads,
         cloudinaryConfig,
         createOffers
@@ -62,20 +61,20 @@ router.route('/seed').get(
     })
 );
 
-router.route('/mine').get(protect, authorize('vendor'), getHostOffers);
+router.route('/mine').get( getHostOffers );
 
-router.route('/slug/:slug').get(getOfferBySlug);
+router.route('/slug/:slug').get( getOfferBySlug );
 
 router
     .route('/host/:hostId')
-    .get(protect, authorize('admin'), getOffersByHost);
+    .get( getOffersByHost );
 
 router
     .route('/:id')
-    .get(getOffer)
-    .patch(protect, authorize('host'), updateOffer)
-    .delete(protect, authorize('vendor', 'admin'), deleteOffer);
+    .get( getOffer )
+    .patch( updateOffer )
+    .delete( deleteOffer );
 
-router.route('/:id/reviews').post(protect, authorize('user'), createReview);
+router.route('/:id/reviews').post( createReview );
 
 module.exports = router;

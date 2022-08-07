@@ -53,7 +53,7 @@ exports.register = asyncHandler(async(req, res, next) => {
 });
 
 // @desc      Register Host
-// @route     POST /api/v1/auth/register/host
+// @route     POST /api/v1/auth/registerHost
 // @access    Public
 
 exports.registerHost = asyncHandler(async(req, res, next) => {

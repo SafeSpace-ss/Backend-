@@ -10,12 +10,15 @@ const User = require("../models/user");
 const hostOrder = require("../models/hostOrder");
 
 // @desc      Get all Bookings
-// @route     GET /api/v1/bookings
+// @route     GET /api/v1/booking/
 // @access    Public
 exports.getAllBookings = asyncHandler(async (req, res, next) => {
     res.status(200).json(res.advancedResults);
 });
 
+// @desc      Create Bookings
+// @route     POST /api/v1/booking/createbooking
+// @access    Public
 exports.createBooking = asyncHandler(async (req, res, next) => {
     const { id: user } = req.user;
     const bookingId = uid();
@@ -27,7 +30,7 @@ exports.createBooking = asyncHandler(async (req, res, next) => {
     });
     console.log("BOOKING:   ", booking)
 
-    const hostID = booking.bookingItems.map((item) => item.vendor);
+    const hostID = booking.bookingItems.map((item) => item.host);
     const hosts = hostID.filter((id, index) => hostID.indexOf(id)===index);
 
     console.log("Hosts", hosts);
@@ -36,14 +39,14 @@ exports.createBooking = asyncHandler(async (req, res, next) => {
 
     for(let host of hosts) {
         let hostItems = bookingItems.filter(item=> {
-            console.log("Match:", item['vendor'] === host)
+            console.log("Match:", item['host'] === host)
             console.log("Type Of host from booking", typeof(`${host}`))
             console.log("Type Of id in bookingitems", typeof(item['host']))
 
             if(`${item['host']}` == `${host}`) return true
             else return false
     });
-    console.log("HostItem:  ", vendorItems)
+    console.log("HostItem:  ", hostItems)
     }
 });
 
@@ -70,7 +73,7 @@ exports.getBooking = asyncHandler(async (req, res, next) => {
 
 // @desc      Get host booking
 // @route     GET /api/v1/booking/mybooking
-// @access    Private(host)
+// @access    Public(host)
 exports.getHostBookings = asyncHandler(async (req, res, next) => {
     const booking = await hostOrder.find({ ve: req.user._id }).populate({
       path: 'User',
@@ -120,7 +123,7 @@ exports.deleteBooking = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Get all bookings by user
-// @route     GET /api/v1/bookings/mybookings
+// @route     GET /api/v1/bookings/mine
 // @access    Public(user)
 exports.getUserBooking = asyncHandler(async (req, res, next) => {
   const booking = await Booking.find({ user: req.user.id});
@@ -139,22 +142,3 @@ exports.getUserBooking = asyncHandler(async (req, res, next) => {
   })
 });
 
-// @desc      Get all bookings by user
-// @route     GET /api/v1/bookings/mybookings
-// @access    Public(admin)
-exports.getBookingByUser = asyncHandler(async (req, res, next) => {
-  const booking = await Booking.find({ user: req.user.id});
-
-  if(!booking) {
-    return next(
-      new errorResponse(`Bookings not found for user with id of ${req.user.id}`),
-      404
-    );
-  }
-
-  res.status(200).json({
-    success: true,
-    message: 'User Booking Retrieved!',
-    data: booking,
-  })
-});

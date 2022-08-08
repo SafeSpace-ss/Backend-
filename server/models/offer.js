@@ -10,13 +10,12 @@ const ReviewSchema = new mongoose.Schema(
   {
     timestamps: true, 
   }
-); 
+);  
 
 const OfferSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, unique: true },
     slug: { type: String },
-    number_guests: { type: Number, required: true },
     number_bedrooms: { type: Number, required: true },
     number_bathrooms: { type: Number, required: true },
     property_type: { type: String, enum: ['FLAT', 'HOUSE'] },
@@ -26,10 +25,10 @@ const OfferSchema = new mongoose.Schema(
     image: { type: String, required: true },
     cloudinary_id: { type: String, required: true },
     price: { type: Number, required: true },
-    rating: { type: Number, required: true },
-    numReviews: { type: Number, required: true },
+    rating: { type: Number, required: false },
+    numReviews: { type: Number, required: false },
     description: { type: String, required: true },
-    vendor: {
+    host: {
       type: mongoose.Schema.ObjectId,
       ref: 'Host',
       required: true,

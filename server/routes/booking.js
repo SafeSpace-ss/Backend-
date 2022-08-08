@@ -10,7 +10,7 @@ const {
     createBooking,
     getBooking,
     getHostBookings,
-    deleteBooking,
+    deleteBooking, 
     getUserBooking,
     getBookingByUser,
 } = require('../controllers/booking');
@@ -19,13 +19,13 @@ const router = express.Router();
 
 router
     .route('/')
-    .get( advancedResults(Offer), getAllBookings)
-    .post(authorize('user'), createBooking);
+    .get( advancedResults(Offer), getAllBookings);
+
+    router.route("/createbooking").post( createBooking);
     
 router.route('/mine').get( getUserBooking);
 router.route('/mybookings').get( getHostBookings);
 
-router.route('/user/:userId').get( getBookingByUser);
 
 router.route('/:id').get(getBooking).delete(deleteBooking);
 

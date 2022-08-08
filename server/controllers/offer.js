@@ -10,7 +10,7 @@ const Offer = require('../models/offer');
 // @route     GET /api/v1/offers
 // @access    Public
 exports.getOffers = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  res.status(200).json(res.advancedResults); 
 });
 
 // @desc      Get offer by id (single offer)
@@ -39,7 +39,7 @@ exports.getOffer = asyncHandler(async (req, res, next) => {
 // @route     GET /api/v1/offers/host/:hostId
 // @access    Private(Admin)
 exports.getOffersByHost = asyncHandler(async (req, res, next) => {
-  const offers = await Offer.find({ vendor: req.params.hostId }).populate(
+  const offers = await Offer.find({ host: req.params.hostId }).populate(
     {
       path: 'host',
       select: 'name email',
@@ -63,30 +63,7 @@ exports.getOffersByHost = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Get host offers
-// @route     GET /api/v1/hosts/mine
-// @access    Private(vendor)
-exports.getHostOffers = asyncHandler(async (req, res, next) => {
-  const offers = await Offer.find({ host: req.user.id }).populate({
-    path: 'host',
-    select: 'name email',
-  });
 
-  if (!offers) {
-    return next(
-      new errorResponse(
-        `Offers not found for host with id of ${req.user.id}`,
-        404
-      )
-    );
-  }
-
-  res.status(200).json({
-    success: true,
-    message: 'Host Offers retrieved!',
-    data: offers,
-  });
-});
 
 
 // @desc      Get offers via slug
@@ -115,8 +92,8 @@ exports.getOfferBySlug = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Create an offer
-// @route     Post /api/v1/offers
-// @access    Private (Vendor)
+// @route     Post /api/v1/offers/createOffer
+// @access    Private (host)
 exports.createOffers = asyncHandler(async (req, res, next) => {
   if (!req.file) {
     return next(new errorResponse(`No file found`, 404));
@@ -160,10 +137,7 @@ exports.updateOffer = asyncHandler(async (req, res, next) => {
     );
   }
 
-  //Checking if offer owner matches request user and its not admin
-  if (req.user.id !== offer.host.toString() || req.user.role === 'admin') {
-    return next(new errorResponse(`Not authorized to edit this offer`, 404));
-  }
+  
 
   offer = await Offer.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -178,7 +152,7 @@ exports.updateOffer = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Delete an offer
-// @route     DELETE /api/v1/offerss/:id
+// @route     DELETE /api/v1/offers/:id
 // @access    Private (Host & Admin)
 exports.deleteOffer = asyncHandler(async (req, res, next) => {
   const offer = await Offer.findById(req.params.id);
@@ -189,11 +163,7 @@ exports.deleteOffer = asyncHandler(async (req, res, next) => {
     );
   }
 
-  if (req.user.id !== offer.host.toString() && req.user.role !== 'admin') {
-    return next(
-      new errorResponse(`Not authorized to delete this offer`, 404)
-    );
-  }
+  
 
   offer.remove();
 
@@ -207,7 +177,7 @@ exports.deleteOffer = asyncHandler(async (req, res, next) => {
 
 // @desc      Post reviews
 // @route     POST /api/v1/offers/:id/reviews
-// @access    Private (Users)
+// @access    Public (Users)
 exports.createReview = asyncHandler(async (req, res, next) => {
   const offer = await Offer.findById(req.params.id);
   const name = req.user.name;
@@ -219,12 +189,7 @@ exports.createReview = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // check that review is not from vendor or admin
-  if (req.user.id === offer.host.toString() || req.user.role === 'admin') {
-    return next(
-      new errorResponse(`Not authorized to give review on this product`, 404)
-    );
-  }
+  
 
   // checks if user has submitted review previously
   if (offer.reviews.find((x) => x.name === name)) {

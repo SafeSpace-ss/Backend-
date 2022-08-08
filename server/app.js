@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Mount routes
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/user', users);
-app.use('/api/v1/offer', offer);
+app.use('/api/v1/offers', offer);
 app.use('/api/v1/booking', booking);
 
 app.get("/", (req, res) =>  

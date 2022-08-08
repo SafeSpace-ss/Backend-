@@ -12,7 +12,7 @@ const Offer = require('../models/offer');
 
 const {
     getOffers,
-    getOffer,
+    getOffer,  
     getOffersByHost,
     getHostOffers,
     getOfferBySlug,
@@ -25,17 +25,14 @@ const {
 
 const router = express.Router();
 
-router
-    .route('/')
-    .get(
+router.route('/').get(
         advancedResults(Offer, {
             path: 'host',
             select: 'name email',
         }),
         getOffers
     )
-    .post(
-        
+router.route('/createOffer').post(
         multerUploads,
         cloudinaryConfig,
         createOffers

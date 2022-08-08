@@ -16,7 +16,9 @@ A basic feature of a shortlet service with the following features:
 - Check "/server/process.txt" for sample.
 
 ## Install Dependencies
-- npm install
+````
+    npm install
+````
 
 
 # Run in dev mode
@@ -31,6 +33,7 @@ A basic feature of a shortlet service with the following features:
 
 ### Routes and Payload 
 
+```
 ## Authentication
 - @desc      Register user 
 - @route     POST /api/v1/auth/register
@@ -55,6 +58,7 @@ A basic feature of a shortlet service with the following features:
 
 
 ## Offers provided by Hosts
+
 - @method    getOffers
 - @desc      Get all offers 
 - @route     GET /api/v1/offers

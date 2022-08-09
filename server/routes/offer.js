@@ -33,8 +33,6 @@ router.route('/').get(
         getOffers
     )
 router.route('/createOffer').post(
-        multerUploads,
-        cloudinaryConfig,
         createOffers
     );
 
@@ -56,9 +54,8 @@ router.route('/seed').get(
                 .send({ message: 'No Host Found. first run /api/va/auth/seed'});
         }
     })
-);
+); 
 
-router.route('/mine').get( getHostOffers );
 
 router.route('/slug/:slug').get( getOfferBySlug );
 

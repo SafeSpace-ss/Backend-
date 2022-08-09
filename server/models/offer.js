@@ -21,9 +21,8 @@ const OfferSchema = new mongoose.Schema(
     property_type: { type: String, enum: ['FLAT', 'HOUSE'] },
     type: { type: String, enum: ['PRIVATE_ROOM', 'SHARED_ROOM', 'FULL'], required: true },
     bed_type: {type: String, enum:['SINGLE', 'DOUBLE', 'CONVERTIBLE', 'COUCH'], required: true},
-    quantity: { type: Number, required: true, default: 1},
-    image: { type: String, required: true },
-    cloudinary_id: { type: String, required: true },
+    image: { type: String, required: false },
+    cloudinary_id: { type: String, required: false },
     price: { type: Number, required: true },
     rating: { type: Number, required: false },
     numReviews: { type: Number, required: false },
@@ -42,7 +41,7 @@ const OfferSchema = new mongoose.Schema(
 
 // Create Product slug from the name
 OfferSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lower: true });
+  this.slug = slugify(this.title, { lower: true });
   next();
 });
 

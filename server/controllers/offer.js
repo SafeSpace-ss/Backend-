@@ -95,20 +95,11 @@ exports.getOfferBySlug = asyncHandler(async (req, res, next) => {
 // @route     Post /api/v1/offers/createOffer
 // @access    Private (host)
 exports.createOffers = asyncHandler(async (req, res, next) => {
-  if (!req.file) {
-    return next(new errorResponse(`No file found`, 404));
-  }
 
-  const file = dataUri(req).content;
-  const result = await cloudinary.uploader.upload(file, { folder: 'offers' });
   try {
     const offer = await Offer.create({
       ...req.body,
-      image: result.secure_url,
-      cloudinary_id: result.public_id,
-      rating: 0,
-      numReviews: 0,
-      host: req.user.id,
+      
     });
 
     if (offer) {

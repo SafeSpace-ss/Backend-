@@ -42,10 +42,6 @@ const HostSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please add an address'],
     },
-    city: {
-      type: String,
-      required: [true, 'Please add a city'],
-    },
     state: {
       type: String,
       required: [true, 'Please add a state'],
@@ -56,13 +52,13 @@ const HostSchema = new mongoose.Schema(
     },
     id_num: {
       type: Number,
-      required: ['Please add ID number'],
+      required: [false, 'Please add ID number'],
     },
-    id_card: { type: String, required: [ 'Please upload ID'] },
+    id_card: { type: String, required: [false, 'Please upload ID'] },
 
     cloudinary_id: {
       type: String,
-      required: [ 'Please provide cloudinary ID'],
+      required: [ false, 'Please provide cloudinary ID'],
     },
     role: {
       type: String,

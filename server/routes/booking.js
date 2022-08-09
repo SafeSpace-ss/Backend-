@@ -12,7 +12,6 @@ const {
     getHostBookings,
     deleteBooking, 
     getUserBooking,
-    getBookingByUser,
 } = require('../controllers/booking');
 
 const router = express.Router();

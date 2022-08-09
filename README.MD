@@ -38,7 +38,12 @@ A basic feature of a shortlet service with the following features:
 - @desc      Register user 
 - @route     POST /api/v1/auth/register
 - @access    Public
-- @payload   { name, username, phone, email, DO {Day, Month,Year},  password, role }
+- @payload   { name, username, phone, email, DOB {Day, Month, Year},  password, role }
+
+- @desc      Register Host
+- @route     POST /api/v1/auth/registerHost
+- @access    Public
+- @payload   { email, name, password, phone, business_name, address, state, role}
 
 - @desc      Login user
 - @route     POST /api/v1/auth/login
@@ -47,7 +52,7 @@ A basic feature of a shortlet service with the following features:
 
 - @desc      Update user details
 - @route     PUT /api/v1/auth/updatedetails
-- @access    Private
+- @access    Update
 - @payload    {name or email or name and email}
 
 - @desc      Update password
@@ -90,7 +95,7 @@ A basic feature of a shortlet service with the following features:
 - @desc      Update an offer
 - @route     PATCH /api/v1/offers/:id
 - @access    Public (Host)
-- @payload   { title, image, price, number_bedrooms, number_bathrooms, property_type, type, bed_type, description }
+- @payload   { title, price, number_bedrooms, number_bathrooms, property_type, type, bed_type, description }
 
 - @desc      Delete an offer
 - @route     DELETE /api/v1/offers/:id

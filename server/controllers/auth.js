@@ -65,19 +65,9 @@ exports.registerHost = asyncHandler(async(req, res, next) => {
         return next(new errorResponse('User already exist with this email', 404));
     }
 
-    if(!req.file) {
-        return next(new errorResponse(`No File Found`, 404));
-    }
-
-    const file = dataUri(req).content;
-    const result = await cloudinary.uploader.upload(file, { folder: 'ID_CARDS'});
-    
-
     //Create Host 
     const host = await Host.create({
         ...req.body,
-        id_card: result.secure_url,
-        cloudinary_id: result.public_id,
     });
 
     sendTokenResponse(host, 200, res);
@@ -87,8 +77,7 @@ exports.registerHost = asyncHandler(async(req, res, next) => {
 // @route     POST /api/v1/auth/login
 // @access    Public
 exports.login = asyncHandler(async (req, res, next) => {
-    const { email, username, password} = req.body;
-
+   
     //Validate email, username and password
     if ((!!email && !!username) || (!email && !username)) { //checks for username or email
         return next(new errorResponse('Please provide valid Username or Email.', 404));
@@ -142,7 +131,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
             runValidators: true,
         });
     } else if (req.user.role === 'host') {
-        user = await Host.findByIdAndUpdate(req.user.is, fieldsToUpdate, {
+        user = await Host.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
             new: true,
             runValidators: true,
         });
@@ -179,5 +168,5 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
     user.password = req.body.newPassword;
     await user.save();
 
-    sendTolenResponse(user, 200, res);
+    sendTokenResponse(user, 200, res);
 })

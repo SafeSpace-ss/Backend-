@@ -20,14 +20,16 @@ exports.getAllBookings = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/booking/createbooking
 // @access    Public
 exports.createBooking = asyncHandler(async (req, res, next) => {
-    const { id: user } = req.user;
+    const user = req.user;
     const bookingId = uid();
 
-    const booking = new Booking({
+    try {
+        const booking = await Booking.create({
         ...req.body,
         bookingId: `SafeSpace-${bookingId}`,
-        user,
-    });
+        user,  
+    }); 
+    
     console.log("BOOKING:   ", booking)
 
     const hostID = booking.bookingItems.map((item) => item.host);
@@ -45,8 +47,14 @@ exports.createBooking = asyncHandler(async (req, res, next) => {
 
             if(`${item['host']}` == `${host}`) return true
             else return false
-    });
-    console.log("HostItem:  ", hostItems)
+
+            console.log("HostItem:  ", hostItems)
+    })};
+    
+
+    }
+    catch (err) {
+      return next(new errorResponse(err, 404));
     }
 });
 
